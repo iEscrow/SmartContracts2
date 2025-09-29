@@ -270,10 +270,10 @@ contract MultiTokenPresale is Ownable, ReentrancyGuard, Pausable {
         require(price.isActive, "Token not accepted");
         
         // Convert payment amount to USD value
-        uint256 usdValue = (paymentAmount * price.priceUSD) / (10 ** price.decimals * 10 ** USD_DECIMALS);
+        uint256 usdValue = _getUSDValue(paymentToken, paymentAmount);
 
         // Check if this purchase would exceed the user's limit
-        uint256 newTotalUsd = totalUsdPurchased[beneficiary] + (usdValue * 1e8);
+        uint256 newTotalUsd = totalUsdPurchased[beneficiary] + usdValue
         require(newTotalUsd <= maxTotalPurchasePerUser, "Exceeds max user USD limit");
         
         // Calculate presale tokens
