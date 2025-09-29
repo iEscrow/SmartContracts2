@@ -397,7 +397,7 @@ contract MultiTokenPresale is Ownable, ReentrancyGuard, Pausable {
     // Helper functions for USD value calculations
     function _getUSDValue(address token, uint256 amount) internal view returns (uint256) {
         TokenPrice memory price = tokenPrices[token];
-        return (amount * price.priceUSD) / (10 ** price.decimals * 10 ** USD_DECIMALS);
+        return (amount * price.priceUSD) / (10 ** price.decimals);
     }
     
     function _getUserTotalUSDValue(address user) internal view returns (uint256) {
