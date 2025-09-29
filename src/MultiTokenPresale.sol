@@ -273,11 +273,13 @@ contract MultiTokenPresale is Ownable, ReentrancyGuard, Pausable {
         uint256 usdValue = _getUSDValue(paymentToken, paymentAmount);
 
         // Check if this purchase would exceed the user's limit
-        uint256 newTotalUsd = totalUsdPurchased[beneficiary] + usdValue
+        uint256 newTotalUsd = totalUsdPurchased[beneficiary] + usdValue;
         require(newTotalUsd <= maxTotalPurchasePerUser, "Exceeds max user USD limit");
         
         // Calculate presale tokens
-        return (usdValue * presaleRate) ;
+        uint256 tokenAmount = (usdValue * presaleRate) / (10 ** USD_DECIMALS);
+        require(tokenAmount > 0, "Payment too small for any tokens");
+        return tokenAmount;
     }
     
     function _updateUserUSDTotal(address beneficiary, uint256 usdValue) internal {
