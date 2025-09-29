@@ -281,7 +281,7 @@ contract MultiTokenPresale is Ownable, ReentrancyGuard, Pausable {
     }
     
     function _updateUserUSDTotal(address beneficiary, uint256 usdValue) internal {
-        totalUsdPurchased[beneficiary] += usdValue * 1e8;
+        totalUsdPurchased[beneficiary] += usdValue;
     }
     
     function _processPurchase(
